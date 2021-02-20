@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import datetime
 
-from alphalogic_api.protocol import rpc_pb2
+from alphalogic_api3.protocol import rpc_pb2
 
-from alphalogic_api.attributes import Visible, Access
-from alphalogic_api.multistub import MultiStub
-from alphalogic_api import utils
-from alphalogic_api.logger import log
-from alphalogic_api.utils import Exit
+from alphalogic_api3.attributes import Visible, Access
+from alphalogic_api3.multistub import MultiStub
+from alphalogic_api3 import utils
+from alphalogic_api3.logger import log
+from alphalogic_api3.utils import Exit
 
 
-class AbstractParameter(object):
+class AbstractParameter:
     """
     AbstractParameter implements ParameterService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api/
     blob/master/alphalogic_api/protocol/proto/rpc.proto>`_)
@@ -25,7 +22,7 @@ class AbstractParameter(object):
         """
         Return parameter name
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('name')
         return answer.name
@@ -34,7 +31,7 @@ class AbstractParameter(object):
         """
         Return parameter display name
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('display_name')
         return answer.display_name
@@ -43,7 +40,7 @@ class AbstractParameter(object):
         """
         Return parameter description
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('desc')
         return answer.desc
@@ -52,7 +49,7 @@ class AbstractParameter(object):
         """
         Set parameter display name
 
-        :arg display_name: unicode
+        :arg display_name: str
         """
         answer = self._call('set_display_name', display_name=display_name)
 
@@ -60,7 +57,7 @@ class AbstractParameter(object):
         """
         Set parameter description
 
-        :arg desc: unicode
+        :arg desc: str
         """
         answer = self._call('set_desc', desc=desc)
 
@@ -233,7 +230,7 @@ class AbstractParameter(object):
         """
         Get parameter value
 
-        :rtype: long, float, datetime, bool or unicode
+        :rtype: long, float, datetime, bool or str
         """
         answer = self._call('get')
         return utils.value_from_rpc(answer.value)
@@ -242,7 +239,7 @@ class AbstractParameter(object):
         """
         Set parameter value
 
-        :arg value: The value type: long, float, datetime, bool or unicode
+        :arg value: The value type: long, float, datetime, bool or str
         """
         value_rpc = utils.get_rpc_value(self.value_type, value)
         self._call('set', value=value_rpc)
@@ -251,7 +248,7 @@ class AbstractParameter(object):
         """
         Get the predefined enumeration of values from the 'choices' argument of the parameter
 
-        :rtype: List of values of long, float, datetime, bool or unicode type in a tuple as (value1, value2, value3 ….)
+        :rtype: List of values of long, float, datetime, bool or str type in a tuple as (value1, value2, value3 ….)
         """
         answer = self._call('enums')
         return [utils.value_from_rpc(key.value) for key in answer.enums]
@@ -260,7 +257,7 @@ class AbstractParameter(object):
         """
         Add/replace enumeration member – a pair (value, name) – for the 'choices' argument of the parameter
 
-        :param value: The value type: long, float, datetime, bool or unicode
+        :param value: The value type: long, float, datetime, bool or str
         :param enum_name: enumeration member name
         """
         value_rpc = rpc_pb2.Value()
@@ -272,7 +269,7 @@ class AbstractParameter(object):
         Add/replace multiple enumeration members for the 'choices' argument of the parameter
 
         :param values: An array of values can be one of the following:
-        * List of values of long, float, datetime, bool or unicode type in a tuple as (value1, value2, value3 ….)
+        * List of values of long, float, datetime, bool or str type in a tuple as (value1, value2, value3 ….)
         * List of enumeration members in a tuple of tuples as ((value1, 'enum_name1'), (value2, 'enum_name2'), ...)
 
         """
@@ -281,10 +278,10 @@ class AbstractParameter(object):
         for val in values:
             e = req.enums.add()
             if isinstance(val, tuple):
-                e.name = unicode(val[1])
+                e.name = str(val[1])
                 utils.build_rpc_value(e.value, type(val[0]), val[0])
             else:
-                e.name = unicode(val)
+                e.name = str(val)
                 utils.build_rpc_value(e.value, type(val), val)
 
         self.multi_stub.call_helper('set_enums', fun_set=MultiStub.parameter_fun_set, request=req,
@@ -329,8 +326,8 @@ class Parameter(AbstractParameter):
         if 'value_type' not in kwargs:
             raise Exception('value_type not found in Parameter')
 
-        if kwargs['value_type'] not in [bool, int, long, float, datetime.datetime, unicode, list, dict]:
-            raise Exception('value_type={0} is unknown'.format(kwargs['value_type']))
+        if kwargs['value_type'] not in [bool, int, float, datetime.datetime, str, list, dict]:
+            raise Exception(f'value_type={kwargs["value_type"]} is unknown')
 
         self.default = kwargs.get('default')
         self.choices = kwargs.get('choices', None)
@@ -390,7 +387,7 @@ class ParameterDatetime(Parameter):
 
 class ParameterString(Parameter):
     def __new__(cls, *args, **kwargs):
-        return Parameter(*args, value_type=unicode, **kwargs)
+        return Parameter(*args, value_type=str, **kwargs)
 
 
 class ParameterList(Parameter):

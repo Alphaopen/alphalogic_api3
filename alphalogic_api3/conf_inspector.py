@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 import datetime
 import traceback
-from alphalogic_api.attributes import Visible, Access, Priority
-from alphalogic_api.logger import log
-from alphalogic_api.utils import Exit, value_from_rpc, decode_string
+from alphalogic_api3.attributes import Visible, Access, Priority
+from alphalogic_api3.logger import log
+from alphalogic_api3.utils import Exit, value_from_rpc, decode_string
 
 
 class ConfInspector(object):
@@ -13,7 +13,7 @@ class ConfInspector(object):
         try:
             parameter = object.parameter(name)
             return parameter
-        except Exception, err:
+        except Exception:
             return None
 
     def check_parameter_accordance(self, parameter_model):
@@ -28,7 +28,7 @@ class ConfInspector(object):
                 raise Exception('Real and model type are different')
             elif parameter_model.value_type is datetime.datetime and not(parameter_model.is_datetime()):
                 raise Exception('Real and model type are different')
-            elif parameter_model.value_type is unicode and not(parameter_model.is_string()):
+            elif parameter_model.value_type is str and not(parameter_model.is_string()):
                 raise Exception('Real and model type are different')
 
             #2 check visible
@@ -70,16 +70,16 @@ class ConfInspector(object):
                         if model_vals != real_vals or model_keys != real_keys:
                             raise Exception('Real and model enums are different')
             '''
-        except Exception, err:
+        except Exception as err:
             t = traceback.format_exc()
-            log.error('Parameter discrepancy \'{0}\':\n{1}'.format(parameter_model.name(), decode_string(t)))
+            log.error(f'Parameter discrepancy \'{parameter_model.name()}\':\n{decode_string(t)}')
             raise Exit
 
     def is_event_exist(self, name, object):
         try:
             event = object.event(name)
             return event
-        except Exception, err:
+        except Exception as err:
             return None
 
     def check_event_accordance(self, event_model):
@@ -109,7 +109,7 @@ class ConfInspector(object):
                         not(self.check_value_type_accordance(arg_type_model, arg_type_real)):
                     raise Exception('Real and model arguments are different')
 
-        except Exception, err:
+        except Exception as err:
             t = traceback.format_exc()
             log.error('Event discrepancy \'{0}\'\n{1}'.format(event_model.name(), decode_string(t)))
             raise Exit
@@ -141,15 +141,15 @@ class ConfInspector(object):
                         not(self.check_value_type_accordance(arg_type_model, arg_type_real)):
                     raise Exception('Real and model arguments are different')
 
-        except Exception, err:
+        except Exception as err:
             t = traceback.format_exc()
             log.error('Command discrepancy \'{0}\': {1}'.format(command_model.name(), decode_string(t)))
             raise Exit
 
     def check_value_type_accordance(self, arg_type_model, arg_type_real):
-        if arg_type_model is unicode and arg_type_real is unicode:
+        if arg_type_model is str and arg_type_real is str:
             return True
-        elif arg_type_model in [int, long] and arg_type_real in [int, long]:
+        elif arg_type_model is int and arg_type_real is int:
             return True
         elif arg_type_model is float and arg_type_real is float:
             return True

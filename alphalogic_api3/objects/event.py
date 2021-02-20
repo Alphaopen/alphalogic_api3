@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from alphalogic_api import utils
-from alphalogic_api.attributes import Priority
+from alphalogic_api3 import utils
+from alphalogic_api3.attributes import Priority
 
 
 class AbstractEvent(object):
@@ -17,7 +15,7 @@ class AbstractEvent(object):
         """
         Return event name
 
-        :rtype: unicode
+        :rtype: str
         """
         return self._call('name').name
 
@@ -25,7 +23,7 @@ class AbstractEvent(object):
         """
         Return event display name
 
-        :rtype: unicode
+        :rtype: str
         """
         return self._call('display_name').display_name
 
@@ -33,7 +31,7 @@ class AbstractEvent(object):
         """
         Return event description
 
-        :rtype: unicode
+        :rtype: str
         """
         return self._call('desc').desc
 
@@ -41,7 +39,7 @@ class AbstractEvent(object):
         """
         Set event display name
 
-        :arg display_name: unicode
+        :arg display_name: str
         """
         self._call('set_display_name', display_name=display_name)
 
@@ -49,7 +47,7 @@ class AbstractEvent(object):
         """
         Set event description
 
-        :arg desc: unicode
+        :arg desc: str
         """
         self._call('set_desc', desc=desc)
 

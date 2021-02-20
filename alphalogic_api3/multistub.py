@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-import grpc
-from alphalogic_api.logger import log
-from alphalogic_api.exceptions import IncorrectRPCRequest, RequestError, ComponentNotFound, TimeoutError, ConnectError
-from alphalogic_api import options
 
-from alphalogic_api.protocol.rpc_pb2 import (
+import grpc
+from alphalogic_api3.logger import log
+from alphalogic_api3.exceptions import IncorrectRPCRequest, RequestError, ComponentNotFound, TimeoutError, ConnectError
+from alphalogic_api3 import options
+
+from alphalogic_api3.protocol.rpc_pb2 import (
     ObjectRequest,
     ParameterRequest,
     EventRequest,
@@ -13,7 +12,7 @@ from alphalogic_api.protocol.rpc_pb2 import (
     StateStream
 )
 
-from alphalogic_api.protocol.rpc_pb2_grpc import (
+from alphalogic_api3.protocol.rpc_pb2_grpc import (
     ObjectServiceStub,
     ParameterServiceStub,
     EventServiceStub,
@@ -81,14 +80,14 @@ class MultiStub(object):
 
             except grpc.RpcError as err:
                 if err.code() == grpc.StatusCode.NOT_FOUND:
-                    raise ComponentNotFound(err.message + ' ' + err.details())
+                    raise ComponentNotFound(err.details())
                 elif err.code() == grpc.StatusCode.DEADLINE_EXCEEDED:
-                    raise TimeoutError(err.message + ' ' + err.details())
+                    raise TimeoutError(err.details())
                 elif err.code() == grpc.StatusCode.UNAVAILABLE:
-                    raise ConnectError(err.message + ' ' + err.details())
-                raise RequestError(u'gRPC request failed (code={}): {}, {}'.format(err.code(), err.message, err.details()))
+                    raise ConnectError(err.details())
+                raise RequestError(f'gRPC request failed (code={err.code()}): {err.details()}')
         else:
-            raise IncorrectRPCRequest('{0} not found in {1}'.format(function_name, kwargs['fun_set']))
+            raise IncorrectRPCRequest(f'{function_name} not found in {kwargs["fun_set"]}')
 
 
 log.info("static MultiStub initialization")

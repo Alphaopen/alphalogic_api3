@@ -1,21 +1,17 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 import sys
 import traceback
 from threading import Lock
-from alphalogic_api.objects.event import Event
-from alphalogic_api.objects.command import Command
-from alphalogic_api.objects.parameter import Parameter, ParameterString, ParameterBool, ParameterLong
-from alphalogic_api.attributes import Visible, Access
-from alphalogic_api.manager import Manager
-from alphalogic_api.logger import log
-from alphalogic_api.utils import Exit, decode_string
-from alphalogic_api import init
+from alphalogic_api3.objects.event import Event
+from alphalogic_api3.objects.command import Command
+from alphalogic_api3.objects.parameter import Parameter, ParameterString, ParameterBool, ParameterLong
+from alphalogic_api3.attributes import Visible, Access
+from alphalogic_api3.manager import Manager
+from alphalogic_api3.logger import log
+from alphalogic_api3.utils import Exit, decode_string
+from alphalogic_api3 import init
 
 
-class Object(object):
+class Object:
     """
     Adapter object can have a number of interactions (parameters, commands, events) and run functions.
     All the declarations of the object interactions must be placed inside the Object class body.
@@ -200,12 +196,12 @@ class Root(Object):
 
             self.manager.start_threads()
             self.joinable = False
-            self.manager.configure_multi_stub(host + ':' + unicode(port))
+            self.manager.configure_multi_stub(host + ':' + str(port))
             id_root = self.manager.root_id()
             type_device = self.manager.get_type(id_root)
-            super(Root, self).__init__(type_device, id_root)
+            super().__init__(type_device, id_root)
 
-            log.info('Connecting to ' + host + ':' + unicode(port))
+            log.info(f'Connecting to {host}:{port}')
             self.init(id_root)
             self.joinable = True
             log.info('Root connected OK')

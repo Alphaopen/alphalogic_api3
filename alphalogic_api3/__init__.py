@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from alphalogic_api.logger import Logger
-from alphalogic_api import options
+from alphalogic_api3.logger import Logger
+from alphalogic_api3 import options
 
 
 VERSION_MAJOR = 0  # (System version)

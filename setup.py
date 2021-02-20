@@ -1,19 +1,17 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-Python stub library for Alphalogic adapters.
+Python3 stub library for Alphalogic adapters.
 """
 
 import sys
 import platform
 from setuptools import setup
-from alphalogic_api import __version__
+from alphalogic_api3 import __version__
 
 
 cur = 'win32' if sys.platform == 'win32' else platform.linux_distribution()[0].lower()
 ext = '.zip' if sys.platform == 'win32' else '.tar.gz'
 
-bin_name = 'alphalogic_api-%s-%s%s' % (cur, __version__, ext)
+bin_name = 'alphalogic_api3-%s-%s%s' % (cur, __version__, ext)
 
 
 if __name__ == '__main__':
@@ -22,24 +20,24 @@ if __name__ == '__main__':
         long_description = fh.read()
 
     setup(
-        name='alphalogic-api',
+        name='alphalogic-api3',
         version=__version__,
         description=__doc__.replace('\n', '').strip(),
         long_description=long_description,
         long_description_content_type='text/markdown',
         author='Alphaopen',
         author_email='mo@alphaopen.com',
-        url='https://github.com/Alphaopen/alphalogic_api',
+        url='https://github.com/Alphaopen/alphalogic_api3',
         py_modules=['alphalogic_api'],
         include_package_data=True,
         packages=[
-            'alphalogic_api',
-            'alphalogic_api.objects',
-            'alphalogic_api.protocol',
-            'alphalogic_api.tests'
+            'alphalogic_api3',
+            'alphalogic_api3.objects',
+            'alphalogic_api3.protocol',
+            'alphalogic_api3.tests'
         ],
         classifiers=(
-            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3.9",
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
         ),

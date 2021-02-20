@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 import os
 import sys
@@ -34,10 +32,10 @@ def parse_arguments():
     args = parser.parse_args()
 
     if args.help:
-        print parser.format_help()
+        print(parser.format_help())
         sys.exit(1)
 
     if args.development_mode:
-        print '* * * * * * * * * * * * * * * * * *\n' \
-              '* * * !! DEVELOPMENT MODE !!  * * *\n' \
-              '* * * * * * * * * * * * * * * * * *'
+        print ('* * * * * * * * * * * * * * * * * *\n'
+               '* * * !! DEVELOPMENT MODE !!  * * *\n'
+               '* * * * * * * * * * * * * * * * * *')

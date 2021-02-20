@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 import datetime
 
-from alphalogic_api.attributes import Visible, Access
-from alphalogic_api.objects import Root, Object
-from alphalogic_api.objects import MajorEvent
-from alphalogic_api.objects import ParameterBool, ParameterLong, \
+from alphalogic_api3.attributes import Visible, Access
+from alphalogic_api3.objects import Root, Object
+from alphalogic_api3.objects import MajorEvent
+from alphalogic_api3.objects import ParameterBool, ParameterLong, \
     ParameterDouble, ParameterDatetime, ParameterString
-from alphalogic_api.decorators import command, run
+from alphalogic_api3.decorators import command, run
 
 
 # Handle will be executed after parameter param_double was changed
@@ -28,7 +26,7 @@ class MyRoot(Root):
     param_count = ParameterLong(default=0)
 
     # Events
-    alarm = MajorEvent(('where', unicode),
+    alarm = MajorEvent(('where', str),
                        ('when', datetime.datetime),
                        ('why', int))
 

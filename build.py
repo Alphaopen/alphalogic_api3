@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 import shutil
@@ -32,11 +30,10 @@ if __name__ == '__main__':
     if os.path.exists('dist'):
         shutil.rmtree('dist', onerror=onerror)
 
-    #
     ext = 'zip' if sys.platform == 'win32' else 'gztar'
     call(['python', 'setup.py', 'sdist', '--formats=' + ext, 'bdist_wheel'])
 
     # remove service directories
-    for d in ['build', 'alphalogic_api.egg-info']:
+    for d in ['build', 'alphalogic_api3.egg-info']:
         if os.path.exists(d):
             shutil.rmtree(d, onerror=onerror)

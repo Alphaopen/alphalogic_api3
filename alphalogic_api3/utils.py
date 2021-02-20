@@ -1,17 +1,16 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 import locale
 import datetime
 import inspect
-from alphalogic_api.protocol import rpc_pb2
-from alphalogic_api.logger import log
-from alphalogic_api.exceptions import Exit
+from alphalogic_api3.protocol import rpc_pb2
+from alphalogic_api3.logger import log
+from alphalogic_api3.exceptions import Exit
 
 
 def value_type_field_definer(value_type):
-    if unicode is value_type:
+    if str is value_type:
         return 'string_value'
-    elif int is value_type or long is value_type:
+    elif int is value_type:
         return 'long_value'
     elif float is value_type:
         return 'double_value'
@@ -30,9 +29,9 @@ def value_type_field_definer(value_type):
 
 
 def create_command_definer(result_type):
-    if unicode is result_type:
+    if str is result_type:
         return 'create_string_command'
-    elif int is result_type or long is result_type:
+    elif int is result_type:
         return 'create_long_command'
     elif float is result_type:
         return 'create_double_command'
@@ -47,9 +46,9 @@ def create_command_definer(result_type):
 
 
 def create_parameter_definer(result_type):
-    if unicode is result_type:
+    if str is result_type:
         return 'create_string_parameter'
-    elif int is result_type or long is result_type:
+    elif int is result_type:
         return 'create_long_parameter'
     elif float is result_type:
         return 'create_double_parameter'
@@ -77,18 +76,9 @@ def get_command_argument_type(arg):
 
 def decode_string(s):
     """
-    Convert 's' to unicode. Try to guess encoding
+    todo remove
     """
-    if isinstance(s, unicode):
-        return s
-
-    for codec in [locale.getpreferredencoding(), 'utf8', 'cp1251', 'cp1252']:
-        try:
-            return s.decode(codec)
-        except:
-            pass
-    # nothing else
-    return unicode(s)
+    return s
 
 
 def epoch():
@@ -114,7 +104,7 @@ def create_list_value(value_rpc, value):
 
 
 def build_rpc_value(value_rpc, value_type, value=None):
-    if value_type == int or value_type == long:
+    if value_type == int:
         value_rpc.long_value = value if value else 0
     elif value_type == float:
         value_rpc.double_value = value if value else 0.0
@@ -126,7 +116,7 @@ def build_rpc_value(value_rpc, value_type, value=None):
             value_rpc.datetime_value = 0
     elif value_type == bool:
         value_rpc.bool_value = value if value else False
-    elif value_type == unicode:
+    elif value_type == str:
         value_rpc.string_value = value if value else ''
     elif value_type == list:
         if value:

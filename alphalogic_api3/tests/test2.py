@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
-from alphalogic_api.objects import Root, Object
-from alphalogic_api.decorators import command
-from alphalogic_api import init
+from alphalogic_api3.objects import Root, Object
+from alphalogic_api3.decorators import command
+from alphalogic_api3 import init
 
 
 class MyRoot(Root):
@@ -21,7 +19,7 @@ def uint64_to_int64(i):
 
 class TreeChecker(Object):
 
-    @command(result_type=long)
+    @command(result_type=int)
     def get_root_id(self):
         return self.root().id
 
@@ -29,12 +27,12 @@ class TreeChecker(Object):
     def get_child_num(self):
         return len(self.children())
 
-    @command(result_type=long)
+    @command(result_type=int)
     def get_child_id(self, index=0):
         id = self.children()[index].id
         return uint64_to_int64(id)
 
-    @command(result_type=long)
+    @command(result_type=int)
     def get_root_id(self):
         id = self.root().id
         return uint64_to_int64(id)

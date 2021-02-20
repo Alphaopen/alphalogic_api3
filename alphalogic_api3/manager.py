@@ -1,22 +1,21 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 import signal
 import time
 from threading import Thread
 import traceback
-from alphalogic_api.protocol import rpc_pb2
-from alphalogic_api.multistub import MultiStub
-from alphalogic_api.objects.parameter import Parameter, ParameterDouble
-from alphalogic_api.objects.event import Event
-from alphalogic_api.objects.command import Command
-from alphalogic_api.logger import log
-from alphalogic_api.tasks_pool import TasksPool
-from alphalogic_api.utils import shutdown, decode_string
-from alphalogic_api.attributes import Visible
-from alphalogic_api.exceptions import ComponentNotFound
-from alphalogic_api.conf_inspector import ConfInspector
-from alphalogic_api import options
-from alphalogic_api import utils
+from alphalogic_api3.protocol import rpc_pb2
+from alphalogic_api3.multistub import MultiStub
+from alphalogic_api3.objects.parameter import Parameter, ParameterDouble
+from alphalogic_api3.objects.event import Event
+from alphalogic_api3.objects.command import Command
+from alphalogic_api3.logger import log
+from alphalogic_api3.tasks_pool import TasksPool
+from alphalogic_api3.utils import shutdown, decode_string
+from alphalogic_api3.attributes import Visible
+from alphalogic_api3.exceptions import ComponentNotFound
+from alphalogic_api3.conf_inspector import ConfInspector
+from alphalogic_api3 import options
+from alphalogic_api3 import utils
 
 
 class AbstractManager(object):
@@ -182,14 +181,14 @@ class Manager(AbstractManager):
     def prepare_for_work(self, object, id):
         Manager.nodes[id] = object
         list_id_parameters_already_exists = self.parameters(id)
-        list_parameters_name_already_exists = map(lambda id: self.multi_stub.parameter_call('name', id=id).name,
-                                                  list_id_parameters_already_exists)
+        list_parameters_name_already_exists = list(map(lambda id: self.multi_stub.parameter_call('name', id=id).name,
+                                                  list_id_parameters_already_exists))
         list_parameters_name_period = [getattr(object, name).period_name for name in object.run_function_names]
-        list_parameters_name_should_exists = filter(lambda attr: type(getattr(object, attr)) is Parameter, dir(object))
+        list_parameters_name_should_exists = [(getattr(object, x), x) for x in dir(object) if isinstance(getattr(object, x), Parameter)]
 
-        list_parameters_name_should_exists = map(lambda x: (getattr(object, x), x), list_parameters_name_should_exists)
-        list_parameters_name_should_exists = list(zip(*sorted(list_parameters_name_should_exists,
-                                                              key=lambda x: x[0].index_number))[1])
+        list_parameters_name_should_exists = sorted(list_parameters_name_should_exists, key=lambda x: x[0].index_number)
+        list_parameters_name_should_exists = [x[1] for x in list_parameters_name_should_exists]
+
         list_parameters_name_should_exists = list_parameters_name_should_exists + list_parameters_name_period
         list_parameters_name_should_exists = [name for name in list_parameters_name_should_exists
                                               if name not in list_parameters_name_already_exists]
@@ -274,14 +273,14 @@ class Manager(AbstractManager):
 
     def create_parameter(self, name, object, object_id, list_id_parameters_already_exists, is_copy=True,
                          parameter=None):
-        list_name_parameters_already_exists = map(lambda id: self.multi_stub.parameter_call('name', id=id).name,
-                                                  list_id_parameters_already_exists)
+        list_name_parameters_already_exists = [self.multi_stub.parameter_call('name', id=id).name for id in list_id_parameters_already_exists]
+
         if is_copy and name in object.__dict__:
             parameter = object.__dict__[name].get_copy()
         elif is_copy and name not in object.__dict__ and options.args.development_mode:
             return
         elif parameter is None:
-            raise Exception('{0} is None'.format(name))
+            raise Exception(f'{name} is None')
 
         object.__dict__[name] = parameter
         parameter.parameter_name = name
@@ -317,8 +316,8 @@ class Manager(AbstractManager):
             self.create_parameter(name, object, object_id, list_id_parameters_already_exists)
 
     def create_command(self, name, command, object_id):
-        list_name_commands_already_exists = map(lambda id: self.multi_stub.command_call('name', id=id).name,
-                                                self.commands(object_id))
+        list_name_commands_already_exists = list(map(lambda id: self.multi_stub.command_call('name', id=id).name,
+                                                self.commands(object_id)))
         command.set_multi_stub(self.multi_stub)
         if name not in list_name_commands_already_exists or options.args.development_mode:  # if event doesn't exist
             result_type = command.result_type
@@ -344,8 +343,8 @@ class Manager(AbstractManager):
             self.create_command(name, command, object_id)
 
     def configure_single_event(self, name, event, object_id):
-        list_name_events_already_exists = map(lambda id: self.multi_stub.event_call('name', id=id).name,
-                                              self.events(object_id))
+        list_name_events_already_exists = list(map(lambda id: self.multi_stub.event_call('name', id=id).name,
+                                               self.events(object_id)))
         event.set_multi_stub(self.multi_stub)
         if name not in list_name_events_already_exists or options.args.development_mode:  # if event doesn't exist
             event.id = self.create_event(id_object=object_id, name=name)
@@ -378,8 +377,7 @@ class Manager(AbstractManager):
         id = getattr(self, component_type)(id_object=object_id, name=name)
         if id in self.components:
             return self.components[id]
-        raise ComponentNotFound(u'Can not found \'{}\' in the \'{}\' (id={})'
-                                .format(name, self.nodes[object_id].type, object_id))
+        raise ComponentNotFound(f'Can not found \'{name}\' in the \'{self.nodes[object_id].type}\' (id={object_id})')
 
     def root_id(self):
         return super(Manager, self).root()

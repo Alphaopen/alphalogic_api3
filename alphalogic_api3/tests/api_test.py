@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 import datetime
 
-from alphalogic_api.attributes import Visible, Access
-from alphalogic_api.objects import Root, Object
-from alphalogic_api.objects import MajorEvent
-from alphalogic_api.objects import Parameter, ParameterBool, ParameterLong, \
+from alphalogic_api3.attributes import Visible, Access
+from alphalogic_api3.objects import Root, Object
+from alphalogic_api3.objects import MajorEvent
+from alphalogic_api3.objects import Parameter, ParameterBool, ParameterLong, \
     ParameterDouble, ParameterDatetime, ParameterString
-from alphalogic_api import init
-from alphalogic_api.exceptions import ComponentNotFound
-from alphalogic_api.decorators import command, run
-from alphalogic_api import utils
+from alphalogic_api3 import init
+from alphalogic_api3.exceptions import ComponentNotFound
+from alphalogic_api3.decorators import command, run
+from alphalogic_api3 import utils
 
 
 def handle_after_set_double(node, parameter):
@@ -29,8 +27,7 @@ class MyRoot(Root):
     param_vect = ParameterLong(default=1, choices=(0, 1, 2, 3))
     param_vect2 = ParameterLong(default=2, choices=((0, 'str 77'), (1, 'str 88'), (2, 'str 2'), (3, 'str 3')))
 
-
-    alarm = MajorEvent(('where', unicode),
+    alarm = MajorEvent(('where', str),
                        ('when', datetime.datetime),
                        ('why', int))
     simple_event = MajorEvent()
@@ -67,7 +64,7 @@ class MyRoot(Root):
         assert ['where', 'when', 'why'] == self.alarm.argument_list()
         return True
 
-    @command(result_type=unicode)
+    @command(result_type=str)
     def check(self, where='here'):
         #self.relax(1, 2, 3, 4)
         return 'abc'
@@ -88,7 +85,7 @@ class MyRoot(Root):
     def cmd_return_float(self):
         return int(utils.milliseconds_from_epoch(datetime.datetime.utcnow()) % 1000.0) / 1000.0
 
-    @command(result_type=unicode)
+    @command(result_type=str)
     def cmd_return_unicode(self):
         return 'некоторый текст'
 
@@ -104,8 +101,7 @@ class MyRoot(Root):
     #
     @command(result_type=bool, which=(1, 2, 3), which2=((True, 'On'), (False, 'Off')))
     def relax(self, where='room', why=42, which=2, which2=False):
-        self.log.info(u'where=' + where + u'; why=' + unicode(why)
-                      + u'; which=' + unicode(which) + u'; which2=' + unicode(which2))
+        self.log.info(f'where={where}; why={why}; which={which}; which2={which2}')
         return True
 
     counter = ParameterLong(default=0)

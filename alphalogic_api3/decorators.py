@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 import inspect
 import time
 import traceback
-from alphalogic_api.logger import log
-from alphalogic_api import utils
-from alphalogic_api.utils import decode_string
+from alphalogic_api3.logger import log
+from alphalogic_api3.utils import decode_string, get_command_argument_type
 
 
 def command_preparation(wrapped, func, **kwargs_c):
@@ -23,7 +21,7 @@ def command_preparation(wrapped, func, **kwargs_c):
     bias = 1 if 'self' in args else 0  # if first arg is self, see from second
     for index, name in enumerate(args[bias:]):
         wrapped.arguments.append((name, defaults[index]))
-        wrapped.arguments_type[name] = utils.get_command_argument_type(defaults[index])
+        wrapped.arguments_type[name] = get_command_argument_type(defaults[index])
 
 
 def command(*argv_c, **kwargs_c):
@@ -63,12 +61,12 @@ def command(*argv_c, **kwargs_c):
                 return result
             except Exception as err:
                 t = traceback.format_exc()
-                log.error(u'Command: function exception: {0}'.format(decode_string(t)))
+                log.error(f'Command: function exception: {t}')
                 try:
-                    device.__dict__[wrapped.function_name].set_exception(decode_string(t))
+                    device.__dict__[wrapped.function_name].set_exception(t)
                 except Exception as err:
                     t = traceback.format_exc()
-                    log.error(u'Command: Exception in exception: {0}'.format(decode_string(t)))
+                    log.error(f'Command: Exception in exception: {t}')
 
         command_preparation(wrapped, func, **kwargs_c)
         return wrapped
@@ -100,25 +98,25 @@ def run(*argv_r, **kwargs_r):
                             func(device)
                         except Exception as err:
                             t = traceback.format_exc()
-                            log.error(u'Run function exception: {0}'.format(decode_string(t)))
+                            log.error(f'Run function exception: {t}')
 
                         time_finish = time.time()
                         time_spend = time_finish-time_start
                         log.info('run function {0} of device {2} was executed for {1} seconds'.
                                  format(func.func_name, time_spend, device.id))
 
-                        period = getattr(device, kwargs_r.keys()[0]).val
+                        period = getattr(device, list(kwargs_r.keys())[0]).val
                         func.__dict__['mem_period'] = period
 
                     except Exception as err:
                         t = traceback.format_exc()
-                        log.error(u'system error in run decorator: {0}'.format(decode_string(t)))
+                        log.error(f'system error in run decorator: {t}')
                         status_perform = False
                     finally:
                         if not status_perform:
                             mem_period = func.__dict__['mem_period'] \
                                 if 'mem_period' in func.__dict__ \
-                                else kwargs_r.values()[0]
+                                else list(kwargs_r.values())[0]
                         else:
                             mem_period = period
 
@@ -130,7 +128,7 @@ def run(*argv_r, **kwargs_r):
                                 device.manager.tasks_pool.add_task(time_finish, getattr(device, func.func_name))
 
         wrapped.runnable = True
-        wrapped.period_name = kwargs_r.keys()[0]
-        wrapped.period_default_value = kwargs_r.values()[0]
+        wrapped.period_name = list(kwargs_r.keys())[0]
+        wrapped.period_default_value = list(kwargs_r.values())[0]
         return wrapped
     return decorator

@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 from multiprocessing.dummy import Pool as ThreadPool
 from threading import Thread, Event, Lock
-from Queue import PriorityQueue, Empty
+from queue import PriorityQueue, Empty
 import time
 
 

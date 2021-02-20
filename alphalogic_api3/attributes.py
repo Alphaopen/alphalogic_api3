@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from enum import Enum
-import datetime
-
 
 class Visible(object):
 

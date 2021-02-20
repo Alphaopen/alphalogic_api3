@@ -1,16 +1,14 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
 import datetime
 import time
 from functools import partial
 
-from alphalogic_api.attributes import Visible, Access
-from alphalogic_api.objects import Root, Object
-from alphalogic_api.objects import MajorEvent
-from alphalogic_api.objects import ParameterBool, ParameterLong, \
+from alphalogic_api3.attributes import Visible, Access
+from alphalogic_api3.objects import Root, Object
+from alphalogic_api3.objects import MajorEvent
+from alphalogic_api3.objects import ParameterBool, ParameterLong, \
     ParameterDouble, ParameterDatetime, ParameterString
-from alphalogic_api.decorators import command, run
+from alphalogic_api3.decorators import command, run
 
 '''
 There are handlers available:

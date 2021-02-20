@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import traceback
-from alphalogic_api.protocol import rpc_pb2
-from alphalogic_api.multistub import MultiStub
-from alphalogic_api import utils
-from alphalogic_api.utils import decode_string
-from alphalogic_api.logger import log
+from alphalogic_api3.protocol import rpc_pb2
+from alphalogic_api3.multistub import MultiStub
+from alphalogic_api3 import utils
+from alphalogic_api3.utils import decode_string
+from alphalogic_api3.logger import log
 
 
 class AbstractCommand(object):
@@ -22,7 +19,7 @@ class AbstractCommand(object):
         """
         Return command name
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('name')
         return answer.name
@@ -31,7 +28,7 @@ class AbstractCommand(object):
         """
         Return command display name
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('display_name')
         return answer.display_name
@@ -40,7 +37,7 @@ class AbstractCommand(object):
         """
         Return command description
 
-        :rtype: unicode
+        :rtype: str
         """
         answer = self._call('desc')
         return answer.desc
@@ -49,7 +46,7 @@ class AbstractCommand(object):
         """
         Set command display name
 
-        :arg display_name: unicode
+        :arg display_name: str
         """
         self._call('set_display_name', display_name=display_name)
 
@@ -57,7 +54,7 @@ class AbstractCommand(object):
         """
         Set command description
 
-        :arg desc: unicode
+        :arg desc: str
         """
         self._call('set_desc', desc=desc)
 
@@ -72,7 +69,7 @@ class AbstractCommand(object):
 
     def is_long(self):
         """
-        Return True if command return type is long
+        Return True if command return type is int
 
         :rtype: bool
         """
@@ -119,7 +116,7 @@ class AbstractCommand(object):
         """
         Set command return value
 
-        :arg value: The value type: long, float, datetime, bool or unicode
+        :arg value: The value type: long, float, datetime, bool or str
         """
         value_rpc = utils.get_rpc_value(type(value), value)
         self._call('set_result', value=value_rpc)
@@ -129,7 +126,7 @@ class AbstractCommand(object):
         Set exception in command.
         Information about exception will be called for adapter's side.
 
-        :arg reason: state unicode string
+        :arg reason: state string
         """
         self._call('set_exception', exception=reason)
 
@@ -178,7 +175,7 @@ class AbstractCommand(object):
                     e.name = val[1]
                     utils.build_rpc_value(e.value, type(val[0]), val[0])
                 else:
-                    e.name = unicode(val)
+                    e.name = str(val)
                     utils.build_rpc_value(e.value, type(val), val)
 
             self.multi_stub.call_helper('update_or_create_argument', fun_set=MultiStub.command_fun_set,
