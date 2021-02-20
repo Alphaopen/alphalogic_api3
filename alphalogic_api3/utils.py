@@ -111,7 +111,7 @@ def build_rpc_value(value_rpc, value_type, value=None):
     elif value_type == datetime.datetime:
         if value:
             value_rpc.datetime_value = int((value - datetime.datetime(1970, 1, 1, 0, 0, 0)).total_seconds()) * 1000 \
-                                       + value.microsecond / 1000
+                                       + int(value.microsecond / 1000)
         else:
             value_rpc.datetime_value = 0
     elif value_type == bool:
