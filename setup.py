@@ -20,7 +20,7 @@ if __name__ == '__main__':
         long_description = fh.read()
 
     setup(
-        name='alphalogic-api3',
+        name='alphalogic_api3',
         version=__version__,
         description=__doc__.replace('\n', '').strip(),
         long_description=long_description,
@@ -28,8 +28,9 @@ if __name__ == '__main__':
         author='Alphaopen',
         author_email='mo@alphaopen.com',
         url='https://github.com/Alphaopen/alphalogic_api3',
-        py_modules=['alphalogic_api'],
+        py_modules=['alphalogic_api3'],
         include_package_data=True,
+        setup_requires=['wheel'],
         packages=[
             'alphalogic_api3',
             'alphalogic_api3.objects',
