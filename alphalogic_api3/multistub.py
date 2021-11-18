@@ -50,7 +50,7 @@ class MultiStub(object):
         Get Service methods excluded _
         """
         is_callable = lambda x: callable(getattr(service, x)) and not x.startswith('_')
-        return set(filter(is_callable, dir(service)))
+        return set(list(filter(is_callable, dir(service))))
 
     def object_call(self, *args, **kwargs):
         obj_w = ObjectRequest(**kwargs)

@@ -102,11 +102,15 @@ class ControllerC(Object):
 
 
 class ControllerD(Object):
+    param = None
 
     def __init__(self, type_device, id_device, **kwargs):
         super(ControllerD, self).__init__(type_device, id_device, **kwargs)
         assert 'param' in kwargs
-        kwargs['param']()
+
+    def handle_defaults_loaded(self, **kwargs):
+        if 'param' in kwargs:
+            kwargs['param']()
 
 
 if __name__ == '__main__':

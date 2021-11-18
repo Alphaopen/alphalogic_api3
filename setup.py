@@ -38,7 +38,7 @@ if __name__ == '__main__':
             'alphalogic_api3.tests'
         ],
         classifiers=(
-            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.8",
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
         ),

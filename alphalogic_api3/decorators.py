@@ -16,7 +16,7 @@ def command_preparation(wrapped, func, **kwargs_c):
     wrapped.__dict__['arguments_type'] = {}
     wrapped.__dict__['function_name'] = func.__name__
     wrapped.__dict__['choices'] = {}
-    for name_arg in filter(lambda x: x in kwargs_c, args):
+    for name_arg in list(filter(lambda x: x in kwargs_c, args)):
         wrapped.choices[name_arg] = kwargs_c[name_arg]
     bias = 1 if 'self' in args else 0  # if first arg is self, see from second
     for index, name in enumerate(args[bias:]):
@@ -103,7 +103,7 @@ def run(*argv_r, **kwargs_r):
                         time_finish = time.time()
                         time_spend = time_finish-time_start
                         log.info('run function {0} of device {2} was executed for {1} seconds'.
-                                 format(func.func_name, time_spend, device.id))
+                                 format(func.__name__, time_spend, device.id))
 
                         period = getattr(device, list(kwargs_r.keys())[0]).val
                         func.__dict__['mem_period'] = period
@@ -123,9 +123,9 @@ def run(*argv_r, **kwargs_r):
                         if call_again:
                             if time_spend < mem_period:
                                 device.manager.tasks_pool.add_task(time_finish + mem_period - time_spend,
-                                                                   getattr(device, func.func_name))
+                                                                   getattr(device, func.__name__))
                             else:
-                                device.manager.tasks_pool.add_task(time_finish, getattr(device, func.func_name))
+                                device.manager.tasks_pool.add_task(time_finish, getattr(device, func.__name__))
 
         wrapped.runnable = True
         wrapped.period_name = list(kwargs_r.keys())[0]

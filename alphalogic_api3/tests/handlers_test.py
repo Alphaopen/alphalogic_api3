@@ -1,8 +1,8 @@
 
 from functools import partial
 
-from alphalogic_api.objects import Root, Object
-from alphalogic_api.objects import ParameterString
+from alphalogic_api3.objects import Root, Object
+from alphalogic_api3.objects import ParameterString
 
 '''
 There are handlers available:

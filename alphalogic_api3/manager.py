@@ -184,11 +184,10 @@ class Manager(AbstractManager):
         list_parameters_name_already_exists = list(map(lambda id: self.multi_stub.parameter_call('name', id=id).name,
                                                   list_id_parameters_already_exists))
         list_parameters_name_period = [getattr(object, name).period_name for name in object.run_function_names]
-        list_parameters_name_should_exists = [(getattr(object, x), x) for x in dir(object) if isinstance(getattr(object, x), Parameter)]
+        list_parameters_name_should_exists = list(filter(lambda attr: type(getattr(object, attr)) is Parameter, dir(object)))
 
-        list_parameters_name_should_exists = sorted(list_parameters_name_should_exists, key=lambda x: x[0].index_number)
-        list_parameters_name_should_exists = [x[1] for x in list_parameters_name_should_exists]
-
+        list_parameters_name_should_exists = list(map(lambda x: (getattr(object, x), x), list_parameters_name_should_exists))
+        list_parameters_name_should_exists = list(list(zip(*sorted(list_parameters_name_should_exists,key=lambda x: x[0].index_number)))[1])
         list_parameters_name_should_exists = list_parameters_name_should_exists + list_parameters_name_period
         list_parameters_name_should_exists = [name for name in list_parameters_name_should_exists
                                               if name not in list_parameters_name_already_exists]
@@ -337,7 +336,7 @@ class Manager(AbstractManager):
         Manager.components_for_device[object_id].append(id_command)
 
     def configure_commands(self, object, object_id):
-        list_commands = filter(lambda attr: type(getattr(object, attr)) is Command, dir(object))
+        list_commands = list(filter(lambda attr: type(getattr(object, attr)) is Command, dir(object)))
         for name in list_commands:
             command = object.__dict__[name]
             self.create_command(name, command, object_id)
@@ -362,7 +361,7 @@ class Manager(AbstractManager):
         Manager.components_for_device[object_id].append(event.id)
 
     def configure_events(self, object, object_id):
-        list_events = filter(lambda attr: type(getattr(object, attr)) is Event, dir(object))
+        list_events = list(filter(lambda attr: type(getattr(object, attr)) is Event, dir(object)))
         for name in list_events:
             object.__dict__[name] = object.__dict__[name].get_copy()
             event = object.__dict__[name]

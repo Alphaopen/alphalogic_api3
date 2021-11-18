@@ -40,7 +40,7 @@ class Object:
         self.__dict__['defaults_loaded_dict'] = kwargs if kwargs else {}
 
         # Parameters
-        list_parameters_name = filter(lambda attr: type(getattr(self, attr)) is Parameter, dir(self))
+        list_parameters_name = list(filter(lambda attr: type(getattr(self, attr)) is Parameter, dir(self)))
         for name in list_parameters_name:
             if name in type(self).__dict__:
                 self.__dict__[name] = type(self).__dict__[name]
@@ -52,18 +52,18 @@ class Object:
         # Commands
         is_callable = lambda x: callable(getattr(self, x)) and not x.startswith('_') and\
                                 hasattr(getattr(self, x), 'result_type')
-        list_command_name = filter(is_callable, dir(self))
+        list_command_name = list(filter(is_callable, dir(self)))
         for name in list_command_name:
             self.__dict__[name] = Command(self, type(self).__dict__[name])
 
         # Events
-        for name in filter(lambda attr: type(getattr(self, attr)) is Event, dir(self)):
+        for name in list(filter(lambda attr: type(getattr(self, attr)) is Event, dir(self))):
             self.__dict__[name] = type(self).__dict__[name]
 
         # Run functions
         is_runnable = lambda x: callable(getattr(self, x)) and not x.startswith('_') and\
                                 hasattr(getattr(self, x), 'runnable')
-        self.__dict__['run_function_names'] = filter(is_runnable, dir(self))
+        self.__dict__['run_function_names'] = list(filter(is_runnable, dir(self)))
 
     def parameters(self):
         """
@@ -193,7 +193,6 @@ class Root(Object):
     def __init__(self):
         try:
             host, port = init()
-
             self.manager.start_threads()
             self.joinable = False
             self.manager.configure_multi_stub(host + ':' + str(port))

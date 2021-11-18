@@ -29,13 +29,15 @@ class TreeChecker(Object):
 
     @command(result_type=int)
     def get_child_id(self, index=0):
-        id = self.children()[index].id
-        return uint64_to_int64(id)
+        _id = -1
+        if self.children():
+            _id = self.children()[index].id
+        return _id
 
     @command(result_type=int)
     def get_root_id(self):
         id = self.root().id
-        return uint64_to_int64(id)
+        return id
 
     def handle_get_available_children(self):
         return [
