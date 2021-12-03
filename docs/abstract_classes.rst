@@ -1,8 +1,7 @@
 .. _abstract_classes:
 
 Abstract Classes
-=================
-
+================
 
 .. py:module:: alphalogic_api3.objects.parameter
 
@@ -38,6 +37,6 @@ Abstract manager
    :members:
    
 Manager
-~~~~~~~~~~~~~~~~
+~~~~~~~
 .. autoclass:: Manager
    :members: 

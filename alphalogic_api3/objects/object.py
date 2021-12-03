@@ -141,7 +141,6 @@ class Object:
         """
         return self.manager.children(self.id)
 
-
     '''
     def __getattr__(self, name):
         return self.__dict__[name]

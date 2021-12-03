@@ -15,6 +15,7 @@ Root
 ~~~~
 To specify a root object of the user-written adapter, you must create a class that inherits from class Root:
 ::
+
     from alphalogic_api3.objects import Root
     ......
     class MyRoot(Root):
@@ -29,6 +30,7 @@ Object
 ~~~~~~
 To specify an adapter object (not Root object), create a class that inherits from the class Object:
 ::
+
     from alphalogic_api3.objects import Object
     ......
     class Controller(Object):
@@ -48,6 +50,7 @@ Parameter
 
 Example of parameter definition:
 ::
+
     from alphalogic_api3.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime,
                                         ParameterString, ParameterList, ParameterDict
     ...
@@ -56,6 +59,7 @@ Example of parameter definition:
 
 Read and write parameter value:
 ::
+
     self.message.val = 'Me too'
     self.param_str.val = self.message.val
 
@@ -122,15 +126,18 @@ Parameter arguments are optional.
 
 To build a value list for the parameter, it is required that both arguments 'choices' and 'default' are specified.
 ::
+
     param_tmp = ParameterLong(visible=Visible.setup, access=Access.read_write, default=1,
                               choices=((1, 'First'), (2, 'Second')))
 
 Second approach to build value list for parameter:
 ::
+
     param_tmp = ParameterLong(visible=Visible.setup, access=Access.read_write, default=1, choices=(1, 2))
 
 Be careful to assign a value (not an enumeration member's name) to 'default' argument if the 'choices' argument provides enumeration with descriptions:
 ::
+
     param_tmp2 = ParameterBool(default=True, choices=((True, 'On'), (False, 'Off')))
 
 Here is the definition of the class Parameter:
@@ -149,9 +156,11 @@ To define an event with arguments, you must append a tuple of (argument name, ar
 
 Example of event definition:
 ::
+
    alarm = MajorEvent(('where', unicode), ('when', datetime.datetime), ('why', long))
 
 | The possible value types of the event arguments are:
+
 * unicode – used for string data,
 * datetime.datetime – used for date and time,
 * long – for integer values,
@@ -160,14 +169,17 @@ Example of event definition:
 
 The function that triggers an event occurence (emit) can be passed with the event arguments as a tuple of name/value pairs, each argument name followed by an equal sign:
 ::
+
     alarm.emit(where="Red Square, Moscow", when=datetime.datetime(2018, 12, 31), why=123456)
 
 Python allows you to pass functions as a parameters to another functions. In the present case, function can be passed instead of the value for the event argument:
 ::
+
     alarm.emit(where="Red Square, Moscow", when=datetime.datetime.utcnow(), why=123456)
 
 Example of the event function without arguments:
 ::
+
     alarm.emit()
 
 
@@ -215,6 +227,7 @@ There are three types of handlers which can be installed to control the workflow
 
 1) Request on child objects of the adapter object:
 ::
+
     def handle_get_available_children(self):
         return [
             (Controller, 'Controller'),
@@ -226,6 +239,7 @@ You must use the exact name of the handler as in the example above.
 
 2) Request on deletion of the adapter object(s):
 ::
+
     def handle_before_remove_device(self):
         do something
 
@@ -234,6 +248,7 @@ You must use the exact name of the handler as in the example above.
 
 3) Changing the value of the parameter:
 ::
+
     def handle_after_set_double(node, parameter):
         node.log.info('double changed')
         node.after_set_value_test_event.emit(value=parameter.val)
@@ -246,12 +261,14 @@ In the case of parameter changes, you can use whichever name of the handler func
 
 4) Handler for configure Object after creation by user
 ::
+
     number = ParameterLong(visible=Visible.setup)
     def handle_defaults_loaded(self, **kwargs):
         self.displayName.val = str(self.number.val)
 
 5) Handler is executed before work of object
 ::
+
     number = ParameterLong(visible=Visible.setup)
     def handle_prepare_for_work(self):
         self.displayName.val = str(self.number.val)
@@ -283,6 +300,7 @@ Advanced using
 ~~~~~~~~~~~~~~
 1) Create a child object with predefault values:
 ::
+
     class Controller(Object, DiagHelper):
         some_parameter_title = ParameterLong(default=0)
 
@@ -306,6 +324,7 @@ Handlers order example
 ----------------------
 1) Situation 1: User creates object
 ::
+
     class Controller(Object):
 
         def __init__(self, type_device, id_device, **kwargs):
@@ -323,6 +342,7 @@ Handlers order example
 
 2) Situation 2: Object has been loaded from configuration
 ::
+
     class Controller(Object):
 
         def __init__(self, type_device, id_device, **kwargs):

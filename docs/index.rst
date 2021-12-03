@@ -33,20 +33,21 @@ Installation
 To install the ``alphalogic_api3`` package with `pip
 <https://pip.pypa.io/>`_, run this command in your terminal:
 ::
+
     pip install alphalogic-api
 
 If you don't have pip installed, this `Python installation guide
 <http://docs.python-guide.org/en/latest/starting/installation/>`_ can guide you through the process.
 
 Dependencies
--------------
+------------
 
 To start using this library you need the Alphalogic Service Manager (ASM) to be installed on your machine. Additionally, you also need the composite Alphalogic adapter (probably, engine) to be installed to provide a "shell" for your code to run in.
 You can define the required dependencies by editing the 'requirements' parameter in the [pip] section in the ``stub.win32.ini`` file (for Windows) or ``stub.linux.ini`` file (for Linux). Navigate to the ``\bin`` folder of the installed composite Alphalogic adapter, and open appropriate file to edit.
 After saving this file, you can access the necessary libraries via the ASM: go to Infrastructure > Adapters page, download and install the specific dependencies by clicking on the install button for the deployed adapter.
 
 Overview
--------------
+--------
 | Alphalogic adapter is a program for integrating third-party utilities/devices/subsystems/protocols into Alphalogic software platform. In the operating system, adapter runs as a stand-alone process and may be installed as a system service.
 | Three types of adapters can be distinguished by the way they are generated:
    * traditional C++ adapters;
@@ -74,7 +75,7 @@ Every adapter object has a name and a defined set of the specific types of inter
 
 
 Usage
--------------
+-----
 
 Navigate to the ``\bin`` folder of the installed composite Alphalogic adapter and open ``stub.py`` file to edit. It contains the following code:
 ::

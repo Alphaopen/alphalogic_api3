@@ -269,7 +269,7 @@ class AbstractParameter:
         """
         Add/replace multiple enumeration members for the 'choices' argument of the parameter
 
-        :param values: An array of values can be one of the following
+        :param values: An array of values can be one of the following:
 
             * List of values of long, float, datetime, bool or str type in a tuple as (value1, value2, value3 ….)
             * List of enumeration members in a tuple of tuples as ((value1, 'enum_name1'), (value2, 'enum_name2'), ...)
