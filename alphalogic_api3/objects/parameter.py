@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 
 from alphalogic_api3.protocol import rpc_pb2
@@ -11,8 +12,8 @@ from alphalogic_api3.utils import Exit
 
 class AbstractParameter:
     """
-    AbstractParameter implements ParameterService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api/
-    blob/master/alphalogic_api/protocol/proto/rpc.proto>`_)
+    AbstractParameter implements ParameterService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api3/
+    blob/master/alphalogic_api3/protocol/proto/rpc.proto>`_)
     """
 
     def _call(self, func_name, *args, **kwargs):
@@ -268,10 +269,10 @@ class AbstractParameter:
         """
         Add/replace multiple enumeration members for the 'choices' argument of the parameter
 
-        :param values: An array of values can be one of the following:
-        * List of values of long, float, datetime, bool or str type in a tuple as (value1, value2, value3 ….)
-        * List of enumeration members in a tuple of tuples as ((value1, 'enum_name1'), (value2, 'enum_name2'), ...)
+        :param values: An array of values can be one of the following
 
+            * List of values of long, float, datetime, bool or str type in a tuple as (value1, value2, value3 ….)
+            * List of enumeration members in a tuple of tuples as ((value1, 'enum_name1'), (value2, 'enum_name2'), ...)
         """
         value_type = self.value_type
         req = rpc_pb2.ParameterRequest(id=self.id)
@@ -308,7 +309,7 @@ class AbstractParameter:
 
 class Parameter(AbstractParameter):
     """
-    Class Parameter inherits all data elements and methods from :class:`~alphalogic_api.objects.parameter.AbstractParameter`.
+    Class Parameter inherits all data elements and methods from :class:`~alphalogic_api3.objects.parameter.AbstractParameter`.
     """
     index_number = 0
 

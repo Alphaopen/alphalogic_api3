@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from alphalogic_api3 import utils
 from alphalogic_api3.attributes import Priority
 
 
 class AbstractEvent(object):
     """
-    AbstractEvent implements EventService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api/blob/
-    master/alphalogic_api/protocol/proto/rpc.proto>`_)
+    AbstractEvent implements EventService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api3/blob/
+    master/alphalogic_api3/protocol/proto/rpc.proto>`_)
     """
 
     def _call(self, func_name, *args, **kwargs):
@@ -214,7 +215,7 @@ class AbstractEvent(object):
 
 class Event(AbstractEvent):
     """
-    Class Event inherits all data elements and methods from :class:`~alphalogic_api.objects.event.AbstractEvent`.
+    Class Event inherits all data elements and methods from :class:`~alphalogic_api3.objects.event.AbstractEvent`.
 
     :arg priority: trivial, minor, major, critical or blocker
     :arg args: name/type pairs in a tuple of tuples (argument name, argument type)

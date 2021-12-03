@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import grpc
 from alphalogic_api3.logger import log
 from alphalogic_api3.exceptions import IncorrectRPCRequest, RequestError, ComponentNotFound, TimeoutError, ConnectError

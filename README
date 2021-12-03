@@ -7,7 +7,7 @@ Install pip if not present:
 1. win:   https://bootstrap.pypa.io/get-pip.py
    linux: sudo apt-get install python-pip python-dev build-essential
 
-2. win:   Add pip path to PATH (C:\Python27\Scripts)
+2. win:   Add pip path to PATH (C:\Users\User\AppData\Local\Programs\Python\Python38\Scripts\)
 3. win:   Restart console
 
 4. Execute in the console

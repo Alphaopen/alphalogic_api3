@@ -19,16 +19,16 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.pardir)))
 
 # -- Project information -----------------------------------------------------
 
-project = u'alphalogic_api'
+project = u'alphalogic_api3'
 copyright = u'2018, Alphaopen LLC'
 author = u'Alphaopen LLC'
 
 
-import alphalogic_api
+import alphalogic_api3
 # The short X.Y version
-version = alphalogic_api.__version__
+version = alphalogic_api3.__version__
 # The full version, including alpha/beta/rc tags
-release = alphalogic_api.__version__
+release = alphalogic_api3.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -110,7 +110,7 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'alphalogic_apidoc'
+htmlhelp_basename = 'alphalogic_api3doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -137,7 +137,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'alphalogic_api.tex', u'alphalogic\\_api Documentation',
+    (master_doc, 'alphalogic_api3.tex', u'alphalogic\\_api3 Documentation',
      u'Alphaopen LLC', 'manual'),
 ]
 
@@ -147,7 +147,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'alphalogic_api', u'alphalogic_api Documentation',
+    (master_doc, 'alphalogic_api3', u'alphalogic_api3 Documentation',
      [author], 1)
 ]
 
@@ -158,10 +158,11 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'alphalogic_api', u'alphalogic_api Documentation',
-     author, 'alphalogic_api', 'One line description of project.',
+    (master_doc, 'alphalogic_api3', u'alphalogic_api3 Documentation',
+     author, 'alphalogic_api3', 'One line description of project.',
      'Miscellaneous'),
 ]
 
 
 # -- Extension configuration -------------------------------------------------
+

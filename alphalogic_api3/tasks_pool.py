@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from multiprocessing.dummy import Pool as ThreadPool
 from threading import Thread, Event, Lock
 from queue import PriorityQueue, Empty

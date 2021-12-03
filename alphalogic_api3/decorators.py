@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import inspect
 import time
 import traceback
@@ -26,7 +26,7 @@ def command_preparation(wrapped, func, **kwargs_c):
 
 def command(*argv_c, **kwargs_c):
     """
-    Use this decorator to create :class:`~alphalogic_api.objects.command.Command` object.
+    Use this decorator to create :class:`~alphalogic_api3.objects.command.Command` object.
 
     Example 1::
 
@@ -78,6 +78,7 @@ def run(*argv_r, **kwargs_r):
     | This function is used to be called periodically by the gRPC process.
     | It can be defined inside the Object class body to implement some repeatable tasks like interrogation of the controller, modem, database, etc.
     | It is required to specify the necessary trigger period in seconds in the argument of the function.
+
     Example: ::
 
         # Called every 1 second.

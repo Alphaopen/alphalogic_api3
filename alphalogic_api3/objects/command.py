@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import traceback
 from alphalogic_api3.protocol import rpc_pb2
 from alphalogic_api3.multistub import MultiStub
@@ -8,8 +9,8 @@ from alphalogic_api3.logger import log
 
 class AbstractCommand(object):
     """
-    AbstractCommand implements CommandService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api/blob/
-    master/alphalogic_api/protocol/proto/rpc.proto>`_)
+    AbstractCommand implements CommandService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api3/blob/
+    master/alphalogic_api3/protocol/proto/rpc.proto>`_)
     """
 
     def _call(self, func_name, *args, **kwargs):
@@ -194,9 +195,9 @@ class AbstractCommand(object):
 class Command(AbstractCommand):
     """
     | Class Command is used in command decorator.
-    | Class Command inherits all data elements and methods from :class:`~alphalogic_api.objects.command.AbstractCommand`.
+    | Class Command inherits all data elements and methods from :class:`~alphalogic_api3.objects.command.AbstractCommand`.
 
-    :arg device: has :class:`~alphalogic_api.objects.Object` type
+    :arg device: has :class:`~alphalogic_api3.objects.Object` type
     :arg function: executed function
     """
     def __init__(self, device, function):

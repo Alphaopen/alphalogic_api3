@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 class IncorrectRPCRequest(Exception):
     """
     This kind of exception occurs when there is an internal API error, possibly incorrect syntax of some function, or something else.

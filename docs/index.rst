@@ -1,4 +1,4 @@
-.. alphalogic_api documentation master file, created by
+.. alphalogic_api3 documentation master file, created by
    sphinx-quickstart on Mon Aug 06 17:59:42 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -7,7 +7,7 @@
    :maxdepth: 2
    :caption: Contents:
 
-   alphalogic_api
+   alphalogic_api3
    abstract_classes
    license
 
@@ -20,7 +20,7 @@ Indices and tables
 Alphalogic API
 ==============
 
-The Alphalogic API is an official library that provides developers with the tools for creating the Alphalogic system adapters in Python 2.
+The Alphalogic API is an official library that provides developers with the tools for creating the Alphalogic system adapters in Python 3.
 
 Compatibility
 -------------
@@ -30,8 +30,9 @@ The library is compatible with Alphalogic adapters versions since ``.0315``.
 Installation
 ------------
 
-To install the ``alphalogic_api`` package with `pip
-<https://pip.pypa.io/>`_, run this command in your terminal::
+To install the ``alphalogic_api3`` package with `pip
+<https://pip.pypa.io/>`_, run this command in your terminal:
+::
     pip install alphalogic-api
 
 If you don't have pip installed, this `Python installation guide
@@ -48,11 +49,11 @@ Overview
 -------------
 | Alphalogic adapter is a program for integrating third-party utilities/devices/subsystems/protocols into Alphalogic software platform. In the operating system, adapter runs as a stand-alone process and may be installed as a system service.
 | Three types of adapters can be distinguished by the way they are generated:
-* traditional C++ adapters;
-* composite adapters of two different parts: a relatively unchangeable program core written in C++, supplemented by gRPC stub containing application-specific program code which can be written in almost any programming language (C++, Python, Go!, JavaScript, etc.).
-* Java adapters.
+   * traditional C++ adapters;
+   * composite adapters of two different parts: a relatively unchangeable program core written in C++, supplemented by gRPC stub containing application-specific program code which can be written in almost any programming language (C++, Python, Go!, JavaScript, etc.).
+   * Java adapters.
 
-The alphalogic_api library allows to access Alphalogic Integration API for easily developing composite adapters in Python 2, providing the integration developer with opportunity to code at once the functional part of the adapter, knowing nothing about the core.
+The alphalogic_api3 library allows to access Alphalogic Integration API for easily developing composite adapters in Python 3, providing the integration developer with opportunity to code at once the functional part of the adapter, knowing nothing about the core.
 
 Every adapter has a tree-like structure of the adapter objects represented as a set of linked nodes. The object tree has a Root object which will be generated automatically after the adapter instance is started, and a number of parent/child objects forming the object architecture of the adapter.
 
@@ -81,12 +82,13 @@ Navigate to the ``\bin`` folder of the installed composite Alphalogic adapter an
    # -*- coding: utf-8 -*-
    from __future__ import unicode_literals
 
-   from alphalogic_api.objects import Root, Object
-   from alphalogic_api.attributes import Visible, Access
-   from alphalogic_api.objects import MajorEvent
-   from alphalogic_api.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime, ParameterString, ParameterList, ParameterDict
-   from alphalogic_api.decorators import command, run
-   from alphalogic_api.logger import log
+   from alphalogic_api3.objects import Root, Object
+   from alphalogic_api3.attributes import Visible, Access
+   from alphalogic_api3.objects import MajorEvent
+   from alphalogic_api3.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime,
+                                       ParameterString, ParameterList, ParameterDict
+   from alphalogic_api3.decorators import command, run
+   from alphalogic_api3.logger import log
 
 
    class Engine(Root):
@@ -121,12 +123,13 @@ The use of the library can be demonstrated via the following example of the Send
 
    from operator import methodcaller
 
-   from alphalogic_api import options
-   from alphalogic_api.objects import Root, Object
-   from alphalogic_api.attributes import Visible, Access
-   from alphalogic_api.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime, ParameterString, ParameterList, ParameterDict
-   from alphalogic_api.decorators import command, run
-   from alphalogic_api.logger import log
+   from alphalogic_api3 import options
+   from alphalogic_api3.objects import Root, Object
+   from alphalogic_api3.attributes import Visible, Access
+   from alphalogic_api3.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime,
+                                       ParameterString, ParameterList, ParameterDict
+   from alphalogic_api3.decorators import command, run
+   from alphalogic_api3.logger import log
 
 
    #

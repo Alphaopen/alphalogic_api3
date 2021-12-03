@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import traceback
 from threading import Lock
@@ -69,7 +70,7 @@ class Object:
         """
         Return parameters of the object
 
-        :rtype: list of :class:`~alphalogic_api.objects.parameter.Parameter` #TODO
+        :rtype: list of :class:`~alphalogic_api3.objects.parameter.Parameter`
         """
         return self.manager.get_components(self.id, 'parameters')
 
@@ -77,7 +78,7 @@ class Object:
         """
         Return events of the object
 
-        :rtype: list of :class:`~alphalogic_api.objects.event.Event` #TODO
+        :rtype: list of :class:`~alphalogic_api3.objects.event.Event`
         """
         return self.manager.get_components(self.id, 'events')
 
@@ -85,7 +86,7 @@ class Object:
         """
         Return events of the object
 
-        :rtype: list of :class:`~alphalogic_api.objects.command.Command`
+        :rtype: list of :class:`~alphalogic_api3.objects.command.Command`
         """
         return self.manager.get_components(self.id, 'commands')
 
@@ -94,7 +95,7 @@ class Object:
         Get parameter by name
 
         :arg name: parameter name
-        :rtype: :class:`~alphalogic_api.objects.parameter.Parameter` #TODO
+        :rtype: :class:`~alphalogic_api3.objects.parameter.Parameter`
         """
         return self.manager.get_component_by_name(name, self.id, 'parameter')
 
@@ -103,7 +104,7 @@ class Object:
         Get event by name
 
         :arg name: event name
-        :rtype: :class:`~alphalogic_api.objects.event.Event` #TODO
+        :rtype: :class:`~alphalogic_api3.objects.event.Event`
         """
         return self.manager.get_component_by_name(name, self.id, 'event')
 
@@ -112,7 +113,7 @@ class Object:
         Get command by name
 
         :arg name: command name
-        :rtype: :class:`~alphalogic_api.objects.command.Command`
+        :rtype: :class:`~alphalogic_api3.objects.command.Command`
         """
         return self.manager.get_component_by_name(name, self.id, 'command')
 
@@ -120,7 +121,7 @@ class Object:
         """
         Get parent object
 
-        :rtype: parent :class:`~alphalogic_api.objects.Object`
+        :rtype: parent :class:`~alphalogic_api3.objects.Object`
         """
         return self.manager.parent(self.id)
 
@@ -128,7 +129,7 @@ class Object:
         """
         Get root object
 
-        :rtype: :class:`~alphalogic_api.objects.Root`
+        :rtype: :class:`~alphalogic_api3.objects.Root`
         """
         return self.manager.root()
 
@@ -136,7 +137,7 @@ class Object:
         """
         Get child objects
 
-        :rtype: list of child :class:`~alphalogic_api.objects.Object`
+        :rtype: list of child :class:`~alphalogic_api3.objects.Object`
         """
         return self.manager.children(self.id)
 
@@ -181,7 +182,7 @@ class Object:
 
 class Root(Object):
     """
-    Root object inherits from :class:`~alphalogic_api.objects.Object`.
+    Root object inherits from :class:`~alphalogic_api3.objects.Object`.
     This kind of object is a child for the adapter service node. Root object is created automatically when starting the adapter instance.
 
     :arg host: hostname of the gRPC stub instance of the composite adapter

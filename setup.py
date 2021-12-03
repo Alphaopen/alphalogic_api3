@@ -37,11 +37,11 @@ if __name__ == '__main__':
             'alphalogic_api3.protocol',
             'alphalogic_api3.tests'
         ],
-        classifiers=(
+        classifiers=[
             "Programming Language :: Python :: 3.8",
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
-        ),
+        ],
         license='MIT',
         platforms=['linux2', 'win32'],
         install_requires=[

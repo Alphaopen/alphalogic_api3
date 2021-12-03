@@ -1,9 +1,9 @@
-.. _alphalogic_api:
+.. _alphalogic_api3:
 
 API Documentation
 *****************
 
-.. py:module:: alphalogic_api.objects
+.. py:module:: alphalogic_api3.objects
 
 
 Objects
@@ -15,7 +15,7 @@ Root
 ~~~~
 To specify a root object of the user-written adapter, you must create a class that inherits from class Root:
 ::
-    from alphalogic_api.objects import Root
+    from alphalogic_api3.objects import Root
     ......
     class MyRoot(Root):
         ......
@@ -29,7 +29,7 @@ Object
 ~~~~~~
 To specify an adapter object (not Root object), create a class that inherits from the class Object:
 ::
-    from alphalogic_api.objects import Object
+    from alphalogic_api3.objects import Object
     ......
     class Controller(Object):
         ......
@@ -48,7 +48,8 @@ Parameter
 
 Example of parameter definition:
 ::
-    from alphalogic_api.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime, ParameterString, ParameterList, ParameterDict
+    from alphalogic_api3.objects import ParameterBool, ParameterLong, ParameterDouble, ParameterDatetime,
+                                        ParameterString, ParameterList, ParameterDict
     ...
 
     message = ParameterString(default='Hello world!')
@@ -63,71 +64,66 @@ Parameter arguments are optional.
 
 .. table:: Parameter arguments
 
-+-------------+---------------------------+----------------------+----------------------------+
-| Argument    | Description               | Default Value        | Possible Values            |
-+=============+===========================+======================+============================+
-| default     | Default parameter value   | 0 (ParameterLong)    | | All the values of the    |
-|             |                           |----------------------| | corresponding type are   |
-|             |                           | False (ParameterBool)| | allowed (for example,    |
-|             |                           |----------------------| | a parameter of           |
-|             |                           | 0.0 (ParameterDouble)| | ParameterDouble can      |
-|             |                           |----------------------| | hold real numbers)       |
-|             |                           | 0 (ParameterDatetime)|                            |
-|             |                           |----------------------|                            |
-|             |                           | "" (ParameterString) |                            |
-|             |                           |----------------------|                            |
-|             |                           | [] (ParameterList)   |                            |
-|             |                           |----------------------|                            |
-|             |                           | {} (ParameterDict)   |                            |
-+-------------+---------------------------+----------------------+----------------------------+
-| visible     | | A parameter type that   | Visible.runtime      | | Visible.runtime - used   |
-|             | | specifies its features  |                      | | to transfer data from    |
-|             | | and visibility in the   |                      | | integrated device or     |
-|             | | Alphalogic Studio       |                      | | subsystem into           |
-|             |                           |                      | | Alphalogic               |
-|             |                           |                      |----------------------------|
-|             |                           |                      | | Visible.setup - used to  |
-|             |                           |                      | | configure adapter        |
-|             |                           |                      | | object's properties      |
-|             |                           |                      |----------------------------|
-|             |                           |                      | | Visible.hidden - used to |
-|             |                           |                      | | store some data that     |
-|             |                           |                      | | must be hidden for       |
-|             |                           |                      | | target user, e.g.        |
-|             |                           |                      | | adapter license key      |
-|             |                           |                      |----------------------------|
-|             |                           |                      | | Visible.common - a       |
-|             |                           |                      | | hybrid of                |
-|             |                           |                      | | Visible.runtime and      |
-|             |                           |                      | | Visible.setup            |
-|             |                           |                      | | parameter types          |
-|             |                           |                      | | providing combined       |
-|             |                           |                      | | functions                |
-+-------------+---------------------------+----------------------+----------------------------+
-| access      | | A parameter access type | Access.read_write    | Access.read_write          |
-|             | | which specifies the     |                      |----------------------------|
-|             | | permitted and prohibited|                      | Access.read_only           |
-|             | | uses of the parameter   |                      |                            |
-+-------------+---------------------------+----------------------+----------------------------+
-| choices     | | Allows to set up a      | -                    | | The enumeration can be   |
-|             | | predefined enumeration  |                      | | specified in one of two  |
-|             | | of values for the       |                      | | different ways:          |
-|             | | parameter               |                      | | 1) list of values of the |
-|             |                           |                      | | corresponding type in a  |
-|             |                           |                      | | tuple as (value1,        |
-|             |                           |                      | | value2, ..., valueN)     |
-|             |                           |                      | | 2) list of enumeration   |
-|             |                           |                      | | members in a tuple of    |
-|             |                           |                      | | tuples as ((value1,      |
-|             |                           |                      | | 'enum_name1'), (value2,  |
-|             |                           |                      | | 'enum_name2'), ...,      |
-|             |                           |                      | | (value2, 'enum_nameN'))  |
-+-------------+---------------------------+----------------------+----------------------------+
+    +-------------+---------------------------+------------------------+----------------------------+
+    | Argument    | Description               | Default Value          | Possible Values            |
+    +=============+===========================+========================+============================+
+    | default     | Default parameter value   | | 0 (ParameterLong)    | | All the values of the    |
+    |             |                           | | False (ParameterBool)| | corresponding type are   |
+    |             |                           | | 0.0 (ParameterDouble)| | allowed (for example,    |
+    |             |                           | | 0 (ParameterDatetime)| | a parameter of           |
+    |             |                           | | "" (ParameterString) | | ParameterDouble can      |
+    |             |                           | | [] (ParameterList)   | | hold real numbers)       |
+    |             |                           | | {} (ParameterDict)   |                            |
+    +-------------+---------------------------+------------------------+----------------------------+
+    | visible     | | A parameter type that   | Visible.runtime        | | Visible.runtime - used   |
+    |             | | specifies its features  |                        | | to transfer data from    |
+    |             | | and visibility in the   |                        | | integrated device or     |
+    |             | | Alphalogic Studio       |                        | | subsystem into           |
+    |             |                           |                        | | Alphalogic               |
+    |             |                           |                        |                            |
+    |             |                           |                        | | Visible.setup - used to  |
+    |             |                           |                        | | configure adapter        |
+    |             |                           |                        | | object's properties      |
+    |             |                           |                        |                            |
+    |             |                           |                        | | Visible.hidden - used to |
+    |             |                           |                        | | store some data that     |
+    |             |                           |                        | | must be hidden for       |
+    |             |                           |                        | | target user, e.g.        |
+    |             |                           |                        | | adapter license key      |
+    |             |                           |                        |                            |
+    |             |                           |                        | | Visible.common - a       |
+    |             |                           |                        | | hybrid of                |
+    |             |                           |                        | | Visible.runtime and      |
+    |             |                           |                        | | Visible.setup            |
+    |             |                           |                        | | parameter types          |
+    |             |                           |                        | | providing combined       |
+    |             |                           |                        | | functions                |
+    +-------------+---------------------------+------------------------+----------------------------+
+    | access      | | A parameter access type | Access.read_write      | | Access.read_write        |
+    |             | | which specifies the     |                        | | Access.read_only         |
+    |             | | permitted and prohibited|                        |                            |
+    |             | | uses of the parameter   |                        |                            |
+    +-------------+---------------------------+------------------------+----------------------------+
+    | choices     | | Allows to set up a      |                        | | The enumeration can be   |
+    |             | | predefined enumeration  |                        | | specified in one of two  |
+    |             | | of values for the       |                        | | different ways:          |
+    |             | | parameter               |                        | | 1) list of values of the |
+    |             |                           |                        | | corresponding type in a  |
+    |             |                           |                        | | tuple as (value1,        |
+    |             |                           |                        | | value2, ..., valueN)     |
+    |             |                           |                        | | 2) list of enumeration   |
+    |             |                           |                        | | members in a tuple of    |
+    |             |                           |                        | | tuples as ((value1,      |
+    |             |                           |                        | | 'enum_name1'), (value2,  |
+    |             |                           |                        | | 'enum_name2'), ...,      |
+    |             |                           |                        | | (value2, 'enum_nameN'))  |
+    +-------------+---------------------------+------------------------+----------------------------+
 
 
 To build a value list for the parameter, it is required that both arguments 'choices' and 'default' are specified.
 ::
-    param_tmp = ParameterLong(visible=Visible.setup, access=Access.read_write, default=1, choices=((1, 'First'), (2, 'Second')))
+    param_tmp = ParameterLong(visible=Visible.setup, access=Access.read_write, default=1,
+                              choices=((1, 'First'), (2, 'Second')))
 
 Second approach to build value list for parameter:
 ::
@@ -182,18 +178,18 @@ Here is the definition of the class Event:
 
 
 Decorators
-----------
+~~~~~~~~~~
 A decorator is any callable Python object that is used to modify a function, method or class definition.
 A decorator is passed the original object being defined and returns a modified object, which is then bound to the name in the definition.
 Decorators are used for creating class methods or static methods, adding function attributes, tracing, setting pre- and postconditions, etc.
 The @ special character is used to indicate a decorator.
 
-.. py:module:: alphalogic_api.decorators
+.. py:module:: alphalogic_api3.decorators
 
 .. _command_link:
 
 Command
-~~~~~~~
+-------
 Possible values for result type are: unicode, datetime.datetime, int, float, bool, list, dict.
 Here is the definition of the class Command:
 
@@ -202,17 +198,17 @@ Here is the definition of the class Command:
 
 
 Run functions
-~~~~~~~
+-------------
 There is easy way to do some job periodicaly. You can define a lot of run functions in the root or object.
 
 .. autoclass:: run
    :members:
 
 
-.. py:module:: alphalogic_api.exceptions
+.. py:module:: alphalogic_api3.exceptions
 
 Handlers
---------
+~~~~~~~~
 
 The handlers are executed when the corresponding condition occurs.
 There are three types of handlers which can be installed to control the workflow of the adapter before or after calling some functions:
@@ -262,26 +258,26 @@ In the case of parameter changes, you can use whichever name of the handler func
 
 
 Оbject lifetime
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 Created by user
---------------
+---------------
 
-1. ``__init__``. You can't do anything with parameters, events, commands here.
-2. Create parameters, events, commands
-3. Accept values from ``__init__`` kwargs. See `Advanced using` p.1.
-4. ``handle_defaults_loaded`` handle
-5. ``handle_prepare_for_work`` handle
+* ``__init__``. You can't do anything with parameters, events, commands here.
+* Create parameters, events, commands
+* Accept values from ``__init__`` kwargs. See `Advanced using` p.1.
+* ``handle_defaults_loaded`` handle
+* ``handle_prepare_for_work`` handle
 
 Loaded from configuration
------------------------
-1. ``__init__``. You can't do anything with parameters, events, commands here.
-2. Create parameters, events, commands
-3. ``handle_prepare_for_work`` handle
+-------------------------
+* ``__init__``. You can't do anything with parameters, events, commands here.
+* Create parameters, events, commands
+* ``handle_prepare_for_work`` handle
 
 Removed by user
 ---------------
-1. ``handle_before_remove_device``
+* ``handle_before_remove_device``
 
 Advanced using
 ~~~~~~~~~~~~~~
@@ -342,7 +338,7 @@ Handlers order example
 
 
 Exceptions
-~~~~~~~~~~~~~~
+~~~~~~~~~~
 
 .. autoclass:: IncorrectRPCRequest
 

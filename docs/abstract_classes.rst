@@ -4,21 +4,21 @@ Abstract Classes
 =================
 
 
-.. py:module:: alphalogic_api.objects.parameter
+.. py:module:: alphalogic_api3.objects.parameter
 
 Abstract parameter
 ~~~~~~~~~~~~~~~~~~
 .. autoclass:: AbstractParameter
    :members:
 
-.. py:module:: alphalogic_api.objects.event
+.. py:module:: alphalogic_api3.objects.event
 
 Abstract event
 ~~~~~~~~~~~~~~
 .. autoclass:: AbstractEvent
-   :members:
+    :members:
 
-.. py:module:: alphalogic_api.objects.command
+.. py:module:: alphalogic_api3.objects.command
 
 Abstract command
 ~~~~~~~~~~~~~~~~
@@ -30,5 +30,14 @@ Command
 .. autoclass:: Command
    :members:
 
+.. py:module:: alphalogic_api3.manager
 
-
+Abstract manager
+~~~~~~~~~~~~~~~~
+.. autoclass:: AbstractManager
+   :members:
+   
+Manager
+~~~~~~~~~~~~~~~~
+.. autoclass:: Manager
+   :members: 

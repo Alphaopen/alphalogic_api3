@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import datetime
 
 from alphalogic_api3.attributes import Visible, Access

@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=%cd%
 set BUILDDIR=build
-set SPHINXPROJ=alphalogic_api
+set SPHINXPROJ=alphalogic_api3
 
 if "%1" == "" goto help
 

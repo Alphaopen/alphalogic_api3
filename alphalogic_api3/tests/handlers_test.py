@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from functools import partial
 
 from alphalogic_api3.objects import Root, Object
