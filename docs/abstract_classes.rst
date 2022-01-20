@@ -30,13 +30,3 @@ Command
    :members:
 
 .. py:module:: alphalogic_api3.manager
-
-Abstract manager
-~~~~~~~~~~~~~~~~
-.. autoclass:: AbstractManager
-   :members:
-   
-Manager
-~~~~~~~
-.. autoclass:: Manager
-   :members: 

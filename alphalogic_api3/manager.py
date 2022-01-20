@@ -19,10 +19,6 @@ from alphalogic_api3 import utils
 
 
 class AbstractManager(object):
-    """
-    AbstractManager implements ObjectService service (see `rpc.proto <https://github.com/Alphaopen/alphalogic_api3/
-    blob/master/alphalogic_api3/protocol/proto/rpc.proto>`_)
-    """
     def _call(self, name_func, id_object, *args, **kwargs):
         return self.multi_stub.object_call(name_func, id=id_object, *args, **kwargs)
 
@@ -136,66 +132,32 @@ class AbstractManager(object):
     def unregister_all_makers(self, id_object):
         self._call('unregister_all_makers', id_object)
 
-
     def is_connected(self, id_object):
-        """
-        Return True if object has connected state
-
-        :rtype: bool
-        """
         answer = self._call('is_connected', id_object)
         return answer.yes
 
     def is_error(self, id_object):
-        """
-        Return True if object has error state
-
-        :rtype: bool
-        """
         answer = self._call('is_error', id_object)
         return answer.yes
 
     def is_ready_to_work(self, id_object):
-        """
-        Return True if object is ready to work
-
-        :rtype: bool
-        """
         answer = self._call('is_ready_to_work', id_object)
         return answer.yes
 
     def state_no_connection(self, id_object, reason):
-        """
-        Set no connection object state
-        """
         self._call('state_no_connection', id_object, reason=reason)
 
     def state_connected(self, id_object, reason):
-        """
-        Set connected object state
-        """
         self._call('state_connected', id_object, reason=reason)
 
     def state_error(self, id_object, reason):
-        """
-        Set error object state
-        """
         self._call('state_error', id_object, reason=reason)
 
     def state_ok(self, id_object, reason):
-        """
-        Set ok object state (ready to work)
-        """
         self._call('state_ok', id_object, reason=reason)
 
 
 class Manager(AbstractManager):
-    """
-    | Every :class:`~alphalogic_api3.objects.Object` (including :class:`~alphalogic_api3.objects.Root`) has its own member Manager`.
-    | Class Manager inherits all data elements and methods from :class:`~alphalogic_api3.manager.AbstractManager`.
-    | Basically used to control objects state.
-    """
-
     dict_type_objects = {}  # Dictionary of nodes classes. 'type' as a key
     dict_user_name_type_objects = {}  # Dictionary of nodes classes. 'user display name in available_children' as a key
                                       # value - is type of object
@@ -304,12 +266,6 @@ class Manager(AbstractManager):
                 Manager.dict_user_name_type_objects[user_name_display] = callable_class_name
 
     def get_type(self, node_id):
-        """
-        Return :class:`~alphalogic_api3.objects.Object` type
-
-        :arg node_id: :class:`~alphalogic_api3.objects.Object` id
-        :rtype: str
-        """
         type_str = self.type(node_id)[7:]  # cut string 'device.'
         return type_str
 

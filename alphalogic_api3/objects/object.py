@@ -84,7 +84,7 @@ class Object:
 
     def commands(self):
         """
-        Return events of the object
+        Return commands of the object
 
         :rtype: list of :class:`~alphalogic_api3.objects.command.Command`
         """
@@ -141,6 +141,72 @@ class Object:
         """
         return self.manager.children(self.id)
 
+    def get_type(self):
+        """
+        Return :class:`~alphalogic_api3.objects.Object` type
+
+        :rtype: str
+        """
+        return self.manger.get_type(self.id)
+
+    def get_all_device(self):
+        """
+        Return list of id of all objects including calling object
+
+        :rtype: list of id
+        """
+        result = []
+        self.manager.get_all_device(self.id, result)
+        return result
+
+    def is_connected(self, id_object):
+        """
+        Return True if object has connected state
+
+        :rtype: bool
+        """
+        return self.manager.is_connected(self.id)
+
+    def is_error(self, id_object):
+        """
+        Return True if object has error state
+
+        :rtype: bool
+        """
+        return self.manager.is_error(self.id)
+
+    def is_ready_to_work(self, id_object):
+        """
+        Return True if object is ready to work
+
+        :rtype: bool
+        """
+        return self.manager.is_ready_to_work(self.id)
+
+    def state_no_connection(self, reason):
+        """
+        Set no connection object state
+        """
+        self.manager.state_no_connection(self.id, reason=reason)
+
+    def state_connected(self, id_object, reason):
+        """
+        Set connected object state
+        """
+        self.manager.state_connected(self.id, reason=reason)
+
+    def state_error(self, id_object, reason):
+        """
+        Set error object state
+        """
+        self.manager.state_error(self.id, reason=reason)
+
+    def state_ok(self, id_object, reason):
+        """
+        Set ok object state (ready to work)
+        """
+        self.manager.state_ok(self.id, reason=reason)
+
     '''
     def __getattr__(self, name):
         return self.__dict__[name]
@@ -152,11 +218,17 @@ class Object:
             self.__dict__[name] = value
     '''
     def handle_get_available_children(self):
-
+        """
+        Handler is executed before object will be removed
+        Parameters, commands, events have already created.
+        """
         return []
 
     def handle_before_remove_device(self):
-
+        """
+        Handler is executed before object will be removed
+        Parameters, commands, events have already created.
+        """
         pass
 
     def handle_prepare_for_work(self):
