@@ -120,8 +120,8 @@ def build_rpc_value(value_rpc, value_type, value=None):
         value_rpc.string_value = value if value else ''
     elif value_type == list:
         if value:
-            map(lambda x: build_rpc_value(value_rpc.list_value.value.add(), type(x), x),
-                list(filter(lambda x: x is not None, value)))
+            list(map(lambda x: build_rpc_value(value_rpc.list_value.value.add(), type(x), x),
+                list(filter(lambda x: x is not None, value))))
         else:
             value_rpc.list_value.value.extend([])
     elif value_type == dict:
@@ -131,9 +131,6 @@ def build_rpc_value(value_rpc, value_type, value=None):
         else:
             value_rpc.dict_value.value['a'].long_value = 1
             del value_rpc.dict_value.value['a']
-
-    elif value_type == str:
-        raise Exception('\'str\' type using is prohibited')
 
 
 def get_rpc_value(value_type, value=None):
