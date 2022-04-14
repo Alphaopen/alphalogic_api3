@@ -290,6 +290,7 @@ message StateStream {
     State state = 1;
     uint64 id = 2;
     uint64 request_id = 3;
+    uint64 maker_id = 4;
 
     enum State {
         AFTER_CREATING_OBJECT = 0;
