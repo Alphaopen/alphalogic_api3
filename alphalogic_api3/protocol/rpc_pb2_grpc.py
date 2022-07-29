@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from alphalogic_api3.protocol import rpc_pb2 as rpc__pb2
+import rpc_pb2 as rpc__pb2
 
 
 class ObjectServiceStub(object):
@@ -65,6 +65,11 @@ class ObjectServiceStub(object):
                 request_serializer=rpc__pb2.ObjectRequest.SerializeToString,
                 response_deserializer=rpc__pb2.ObjectReply.FromString,
                 )
+        self.create_list_parameter = channel.unary_unary(
+                '/adapter.rpc.ObjectService/create_list_parameter',
+                request_serializer=rpc__pb2.ObjectRequest.SerializeToString,
+                response_deserializer=rpc__pb2.ObjectReply.FromString,
+                )
         self.create_event = channel.unary_unary(
                 '/adapter.rpc.ObjectService/create_event',
                 request_serializer=rpc__pb2.ObjectRequest.SerializeToString,
@@ -97,6 +102,11 @@ class ObjectServiceStub(object):
                 )
         self.create_map_command = channel.unary_unary(
                 '/adapter.rpc.ObjectService/create_map_command',
+                request_serializer=rpc__pb2.ObjectRequest.SerializeToString,
+                response_deserializer=rpc__pb2.ObjectReply.FromString,
+                )
+        self.create_list_command = channel.unary_unary(
+                '/adapter.rpc.ObjectService/create_list_command',
                 request_serializer=rpc__pb2.ObjectRequest.SerializeToString,
                 response_deserializer=rpc__pb2.ObjectReply.FromString,
                 )
@@ -251,6 +261,12 @@ class ObjectServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def create_list_parameter(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def create_event(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -288,6 +304,12 @@ class ObjectServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def create_map_command(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def create_list_command(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -450,6 +472,11 @@ def add_ObjectServiceServicer_to_server(servicer, server):
                     request_deserializer=rpc__pb2.ObjectRequest.FromString,
                     response_serializer=rpc__pb2.ObjectReply.SerializeToString,
             ),
+            'create_list_parameter': grpc.unary_unary_rpc_method_handler(
+                    servicer.create_list_parameter,
+                    request_deserializer=rpc__pb2.ObjectRequest.FromString,
+                    response_serializer=rpc__pb2.ObjectReply.SerializeToString,
+            ),
             'create_event': grpc.unary_unary_rpc_method_handler(
                     servicer.create_event,
                     request_deserializer=rpc__pb2.ObjectRequest.FromString,
@@ -482,6 +509,11 @@ def add_ObjectServiceServicer_to_server(servicer, server):
             ),
             'create_map_command': grpc.unary_unary_rpc_method_handler(
                     servicer.create_map_command,
+                    request_deserializer=rpc__pb2.ObjectRequest.FromString,
+                    response_serializer=rpc__pb2.ObjectReply.SerializeToString,
+            ),
+            'create_list_command': grpc.unary_unary_rpc_method_handler(
+                    servicer.create_list_command,
                     request_deserializer=rpc__pb2.ObjectRequest.FromString,
                     response_serializer=rpc__pb2.ObjectReply.SerializeToString,
             ),
@@ -752,6 +784,23 @@ class ObjectService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def create_list_parameter(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ObjectService/create_list_parameter',
+            rpc__pb2.ObjectRequest.SerializeToString,
+            rpc__pb2.ObjectReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def create_event(request,
             target,
             options=(),
@@ -865,6 +914,23 @@ class ObjectService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ObjectService/create_map_command',
+            rpc__pb2.ObjectRequest.SerializeToString,
+            rpc__pb2.ObjectReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def create_list_command(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ObjectService/create_list_command',
             rpc__pb2.ObjectRequest.SerializeToString,
             rpc__pb2.ObjectReply.FromString,
             options, channel_credentials,
@@ -1225,6 +1291,16 @@ class ParameterServiceStub(object):
                 request_serializer=rpc__pb2.ParameterRequest.SerializeToString,
                 response_deserializer=rpc__pb2.ParameterReply.FromString,
                 )
+        self.is_list = channel.unary_unary(
+                '/adapter.rpc.ParameterService/is_list',
+                request_serializer=rpc__pb2.ParameterRequest.SerializeToString,
+                response_deserializer=rpc__pb2.ParameterReply.FromString,
+                )
+        self.set_list = channel.unary_unary(
+                '/adapter.rpc.ParameterService/set_list',
+                request_serializer=rpc__pb2.ParameterRequest.SerializeToString,
+                response_deserializer=rpc__pb2.ParameterReply.FromString,
+                )
         self.is_runtime = channel.unary_unary(
                 '/adapter.rpc.ParameterService/is_runtime',
                 request_serializer=rpc__pb2.ParameterRequest.SerializeToString,
@@ -1402,6 +1478,18 @@ class ParameterServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def is_map(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def is_list(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def set_list(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1596,6 +1684,16 @@ def add_ParameterServiceServicer_to_server(servicer, server):
             ),
             'is_map': grpc.unary_unary_rpc_method_handler(
                     servicer.is_map,
+                    request_deserializer=rpc__pb2.ParameterRequest.FromString,
+                    response_serializer=rpc__pb2.ParameterReply.SerializeToString,
+            ),
+            'is_list': grpc.unary_unary_rpc_method_handler(
+                    servicer.is_list,
+                    request_deserializer=rpc__pb2.ParameterRequest.FromString,
+                    response_serializer=rpc__pb2.ParameterReply.SerializeToString,
+            ),
+            'set_list': grpc.unary_unary_rpc_method_handler(
+                    servicer.set_list,
                     request_deserializer=rpc__pb2.ParameterRequest.FromString,
                     response_serializer=rpc__pb2.ParameterReply.SerializeToString,
             ),
@@ -1902,6 +2000,40 @@ class ParameterService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ParameterService/is_map',
+            rpc__pb2.ParameterRequest.SerializeToString,
+            rpc__pb2.ParameterReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def is_list(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ParameterService/is_list',
+            rpc__pb2.ParameterRequest.SerializeToString,
+            rpc__pb2.ParameterReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def set_list(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/adapter.rpc.ParameterService/set_list',
             rpc__pb2.ParameterRequest.SerializeToString,
             rpc__pb2.ParameterReply.FromString,
             options, channel_credentials,
@@ -3139,6 +3271,11 @@ class CommandServiceStub(object):
                 request_serializer=rpc__pb2.CommandRequest.SerializeToString,
                 response_deserializer=rpc__pb2.CommandReply.FromString,
                 )
+        self.is_list = channel.unary_unary(
+                '/adapter.rpc.CommandService/is_list',
+                request_serializer=rpc__pb2.CommandRequest.SerializeToString,
+                response_deserializer=rpc__pb2.CommandReply.FromString,
+                )
         self.set_result = channel.unary_unary(
                 '/adapter.rpc.CommandService/set_result',
                 request_serializer=rpc__pb2.CommandRequest.SerializeToString,
@@ -3247,6 +3384,12 @@ class CommandServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def is_list(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def set_result(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -3346,6 +3489,11 @@ def add_CommandServiceServicer_to_server(servicer, server):
             ),
             'is_map': grpc.unary_unary_rpc_method_handler(
                     servicer.is_map,
+                    request_deserializer=rpc__pb2.CommandRequest.FromString,
+                    response_serializer=rpc__pb2.CommandReply.SerializeToString,
+            ),
+            'is_list': grpc.unary_unary_rpc_method_handler(
+                    servicer.is_list,
                     request_deserializer=rpc__pb2.CommandRequest.FromString,
                     response_serializer=rpc__pb2.CommandReply.SerializeToString,
             ),
@@ -3577,6 +3725,23 @@ class CommandService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/adapter.rpc.CommandService/is_map',
+            rpc__pb2.CommandRequest.SerializeToString,
+            rpc__pb2.CommandReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def is_list(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/adapter.rpc.CommandService/is_list',
             rpc__pb2.CommandRequest.SerializeToString,
             rpc__pb2.CommandReply.FromString,
             options, channel_credentials,

@@ -66,6 +66,10 @@ class AbstractManager(object):
         answer = self._call('create_map_parameter', id_object, name=name)
         return answer.id
 
+    def create_list_parameter(self, id_object, name):
+        answer = self._call('create_list_parameter', id_object, name=name)
+        return answer.id
+
     def create_event(self, id_object, name):
         answer = self._call('create_event', id_object, name=name)
         return answer.id
@@ -92,6 +96,10 @@ class AbstractManager(object):
 
     def create_map_command(self, id_object, name):
         answer = self._call('create_map_command', id_object, name=name)
+        return answer.id
+
+    def create_list_command(self, id_object, name):
+        answer = self._call('create_list_command', id_object, name=name)
         return answer.id
 
     def parameters(self, id_object):

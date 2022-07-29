@@ -70,6 +70,11 @@ class ConfInspector(object):
                         if model_vals != real_vals or model_keys != real_keys:
                             raise Exception('Real and model enums are different')
             '''
+
+            # Fix value type MAP -< LIST
+            if parameter_model.value_type == list and parameter_model.is_map():
+                parameter_model.set_list()
+
         except Exception as err:
             t = traceback.format_exc()
             log.error(f'Parameter discrepancy \'{parameter_model.name()}\':\n{decode_string(t)}')
