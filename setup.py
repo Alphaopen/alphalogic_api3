@@ -45,7 +45,7 @@ if __name__ == '__main__':
         license='MIT',
         platforms=['linux2', 'win32'],
         install_requires=[
-            'protobuf==3.14.0',
+            'protobuf==3.20.1',
             'grpcio==1.35.0',
             'grpcio-tools==1.35.0',
         ],
