@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import rpc_pb2 as rpc__pb2
+import alphalogic_api3.protocol.rpc_pb2 as rpc__pb2
 
 
 class ObjectServiceStub(object):
