@@ -331,6 +331,7 @@ class Manager(AbstractManager):
                 type_str = type_str.__name__
 
             yes, maker_id = self.register_maker(id_device, user_name_display, type_str)
+            Manager.maker_ids[id_device][maker_id] = callable_class_name
 
     def get_type(self, node_id):
         type_str = self.type(node_id)[7:]  # cut string 'device.'
