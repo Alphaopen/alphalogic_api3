@@ -355,7 +355,7 @@ class Manager(AbstractManager):
 
             # ValueType
             if self.multi_stub.parameter_call('is_string', id=id_).yes:
-                value_type = unicode
+                value_type = str
             elif self.multi_stub.parameter_call('is_long', id=id_).yes:
                 value_type = int
             elif self.multi_stub.parameter_call('is_double', id=id_).yes:
