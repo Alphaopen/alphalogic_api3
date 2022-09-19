@@ -3,12 +3,12 @@ Python3 stub library for Alphalogic adapters.
 """
 
 import sys
-import platform
+import distro
 from setuptools import setup
 from alphalogic_api3 import __version__
 
 
-cur = 'win32' if sys.platform == 'win32' else platform.linux_distribution()[0].lower()
+cur = 'win32' if sys.platform == 'win32' else distro.like().lower()
 ext = '.zip' if sys.platform == 'win32' else '.tar.gz'
 
 bin_name = 'alphalogic_api3-%s-%s%s' % (cur, __version__, ext)
@@ -48,5 +48,6 @@ if __name__ == '__main__':
             'protobuf==3.20.1',
             'grpcio==1.35.0',
             'grpcio-tools==1.35.0',
+            'distro',
         ],
     )
