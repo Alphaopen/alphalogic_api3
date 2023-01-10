@@ -11,7 +11,7 @@ def command_preparation(wrapped, func, **kwargs_c):
     Return value and command arguments setup
     """
     wrapped.result_type = kwargs_c['result_type']
-    (args, varargs, keywords, defaults) = inspect.getargspec(func)
+    (args, varargs, keywords, defaults, *_) = inspect.getfullargspec(func)
     wrapped.__dict__['arguments'] = []
     wrapped.__dict__['arguments_type'] = {}
     wrapped.__dict__['function_name'] = func.__name__
